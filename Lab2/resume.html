@@ -5,14 +5,19 @@
         <title>Mon resume</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="style.css">
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     </head>
     <body>
         <header>
             <nav>
+                <input type="checkbox" id="check">
+                <label for="check" class="checkbtn">
+                    <i class="fas fa-bars"></i>
+                </label>
                 <label class="header-logo">Voldi</label>
                 <div class ="menu">
                     <ul>
-                        <li><a href="#">Home</a></li>
+                        <li><a class="active" href="#">Home</a></li>
                         <li><a href="#">About me</a></li>
                         <li><a href="#">Experience</a></li>
                         <li><a href="#">Portfolio</a></li>
@@ -38,22 +43,43 @@
                                 <li>+1 (613)879-0193</li>
                             </ul>
                         </div>
-                        <hr>
                         <div>
-                            <h4>Qualification</h4>
+                            <h4 style="margin: 15px 0 15px 0;">Qualification</h4>
                             <p>HTML</p> 
                             <div class="container"> 
-                                <div class="skill html">80%</div> 
+                                <div class="skill html">60%</div> 
                             </div> 
                         
                             <p>C++</p> 
                             <div class="container"> 
-                                <div class="skill cpp">60%</div> 
+                                <div class="skill cpp">65%</div> 
+                            </div>
+
+                            <p>PHP</p> 
+                            <div class="container"> 
+                                <div class="skill php">10%</div> 
+                            </div>
+
+                            <p>JAVA</p> 
+                            <div class="container"> 
+                                <div class="skill java">80%</div> 
+                            </div>
+
+                            <p>GO</p> 
+                            <div class="container"> 
+                                <div class="skill go">60%</div> 
+                            </div>
+
+                            <p>PYTHON</p> 
+                            <div class="container"> 
+                                <div class="skill cpp">50%</div> 
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="right-box"></div>
+                <div class="right-box">
+
+                </div>
             </div>
         </header>
     </body>
