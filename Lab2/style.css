@@ -1,0 +1,130 @@
+*{
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+     box-sizing: border-box;
+}
+@font-face {
+    font-family: monserrat;
+    src: url("Montserrat-VariableFont_wght.ttf");
+}
+body{
+    font-family: montserrat;
+    align-items: center;
+    margin: 0 auto;
+    background-color: #ebebeb;
+}
+
+nav{
+    display: flex;
+    background: #e83030;
+    height:80px;
+    width:100%;
+}
+
+nav ul{
+    float: right;
+    margin-right: 20px;
+}
+
+nav ul li{
+    display: inline-block;
+    line-height: 80px;
+    margin: 0 5px;
+}
+
+nav ul li a{
+    color: white;
+    font-size: 15px;
+    text-transform: uppercase;
+}
+
+label.header-logo{
+    color:white;
+    font-size: 35px;
+    line-height: 80px;
+    padding: 0 100px;
+    font-weight: bold;
+}
+
+.wrapper-div{
+    display: flex;
+}
+
+.id-img{
+    width: 80%;
+    height: 40%;
+    overflow: auto;
+    margin: 10%;
+    border-radius: 5%;
+}
+.left-box {
+    display: block;
+    background-color: #f1f1f1;
+    width: 30%;
+    height: 600px;
+    margin : 15px;
+    border-radius: 5%;
+    box-shadow: 2px 2px 20px 5px #b6b6b6;
+    overflow-y: scroll;
+  }
+
+  .right-box {
+    display: block;
+    background-color: #f1f1f1;
+    width: 70%;
+    height: 600px;
+    margin : 15px;
+    border-radius: 5%;
+    box-shadow: 2px 2px 20px 5px #b6b6b6;
+  }
+
+  .text-box{
+    padding: 10px;
+    text-align: left;
+  }
+
+  hr{
+    margin: 15px 0;
+    border: 2px solid #e83030;
+    border-radius: 5px;
+  }
+
+  .info-contact{
+    overflow-x: scroll;
+    margin: 15px 0;
+  }
+
+.info-list li{
+    margin: 10px;
+  }
+
+  .container { 
+    background-color: rgb(54, 54, 54); 
+    width: 80%; 
+    border-radius: 15px; 
+} 
+
+.skill { 
+    background-color:#e83030; 
+    color: white; 
+    padding: 1%; 
+    font-size: 7px; 
+    text-align: right; 
+    border-radius: 15px; 
+} 
+
+.html { 
+    width: 45%; 
+} 
+
+.cpp { 
+    width: 60%; 
+} 
+.php { 
+    width: 60%; 
+} 
+.java{
+    width: 70%;
+}

@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "Lab3"
+		},
+		{
+			"path": "Lab2"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "csi3x40_labs"
+	}
+}
