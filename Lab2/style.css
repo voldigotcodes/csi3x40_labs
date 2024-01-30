@@ -52,6 +52,8 @@ a.active,a:hover{
     color: white;
     float: right;
     line-height: 80px;
+    margin-right: 40px;
+    cursor: pointer;
 }
 
 label.header-logo{
@@ -85,13 +87,16 @@ label.header-logo{
   }
 
   .right-box {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
     background-color: #f1f1f1;
     width: 70%;
     height: 600px;
     margin : 15px;
     border-radius: 5%;
     box-shadow: 2px 2px 20px 5px #b6b6b6;
+    overflow-y: scroll;
   }
 
   .text-box{
@@ -151,6 +156,49 @@ label.header-logo{
 .python { 
     width: 50%; 
 } 
+.bar { 
+    width: 50%; 
+} 
 
+.top-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 50px;
+    text-align: center;
+    align-items: center;
+
+}
+
+.top-text .container{
+    margin-top: 40px;
+    width: 150px;
+    
+}
+.aboutme{
+    height: 500px;
+    overflow-y: scroll;
+}
+
+.bottom-text{
+    margin-top: 20px;
+    display: flex;
+    padding-top: 20px;
+    justify-content: center;
+    align-items: center;
+    overflow-y: scroll;
+    font-size: 12px;
+
+}
+
+.t {
+    margin: 25px;
+}
+
+.bottom-text .t{
+    width: 40%;
+    text-align: center;
+
+}
 
 
