@@ -239,6 +239,7 @@ label.header-logo{
     padding: 10px 0 0 10px;
     height: 150px;
     overflow-y: scroll;
+    color: #404040;
   }
 
   .proj-desc h3{
