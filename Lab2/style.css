@@ -239,6 +239,7 @@ label.header-logo{
     border-radius:5%;
   }
 img.proj-img{
+    object-fit: contain;
     padding: 5px;
     width: 100%;
     height: 100%;

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Symmetric Hash Join</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      display: flex;
+      background-color: #e83030;
+      color: #fff;
+      text-align: center;
+      padding: 1em;
+    }
+
+    section {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+    }
+
+    h1 {
+      color: #f0f0f0;
+    }
+
+    p {
+      line-height: 1.6;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="../resume.html" style="margin-top: 28px;">
+        <button style="float: left; margin-right: 20px; width: 80px;"> Back to Portfolio</button>
+    </a>
+    <h1>Symmetric Hash Join : PostgreSQL</h1>
+  </header>
+
+  <section>
+    <h2>About the Project</h2>
+    <p>
+        PostgreSQL is a famous database management system, known by most who are into the database world. It uses multiple different algorithms
+        for query optimisation, aka to optimise any request done on any database to bring the result out in the least possible time. In this project we implemented our 
+        own query optimisation algorithm and put it into PostgreSQL source code and compiled it so that it could use our Symmetric Hash join instead of the regular has join it had.
+    </p>
+
+    <h2>Features</h2>
+    <ul>
+      <li>We changed the optimizer so that both the inner and outer relations are first processed by hash nodes before being processed by the hash join operator.
+         In the current implementation, only the inner relation is hashed. The hashing nodes is necessary to incrementally retrieve a tuple from each relation, We put it into the corresponding hash table and returned it to the hash join node. This effect can be implemented by modifying the function that creates the hash join node in the planner component, which can be found in the file</li>
+      <br>
+      <li>We modified the hashing algorithm to support pipelined execution instead of the multi-tuple execution mode that is currently implemented. This means that we implemented the ExecHash function.</li>
+      <br>
+      <li>
+        We disabled the use of multiple batches, i.e. we assumed that the whole hash table consists one batch that is resident in memory for the duration of the join processing. We modified the file nodeHash.c to achieve this. Note that related code in nodeHashjoin.c that handled saving and retrieving tuples to temporary batch files can now be discarded. 
+      </li>
+      <br>
+      <li>
+        We modified the structure of HashJoinState to support the symmetric hash join algorithm by altering the file execnodes.h. We replicated the existing structures to support bi-directional probing.
+      </li>
+      <br>
+      <li>
+        We replaced the hash join algorithm with the symmetric hash join. This algorithm was implemented in nodeHashjoin.c. After completing the join operation, the operator prints the number of resulting tuples that were found by probing inner hash table and outer hash tables, respectively. 
+      </li>
+      <br>
+      <li>
+        We disabled other join operators (i.e. merge join and nested loop join) to force the query optimizer to use the symmetric hash join operator. This can be done by modifying the configuration file postgresql.conf which can be found in the database directory. 
+      </li>
+      <!-- Add more features as needed -->
+    </ul>
+
+    <h2>Technologies Used</h2>
+    <ul>
+      <li>C++</li>
+      <li>PostgreSQL 8.2.0</li>
+      <li>Ubuntu 22.04</li>
+      <!-- Add more technologies as needed -->
+    </ul>
+
+    <h2>Team Members</h2>
+    <ul>
+      <li>Voldi Monzambe</li>
+      <li>Urbain Kodja</li>
+      <li>Yacine Djido</li>
+      <!-- Add more team members as needed -->
+    </ul>
+
+    <h2>Project Demo/Files</h2>
+    <ul>
+      <li><a href="createplan.c">createplan.c</a></li>
+      <li><a href="execnodes.h">execnodes.h</a></li>
+      <li><a href="nodeHash.c">nodeHash.c</a></li>
+      <li><a href="nodeHashjoin.c">nodeHashjoin.c</a></li>
+      <li><a href="README.md">README.md</a></li>
+      <li><a href="README.txt">README.txt</a></li>
+      <li><a href="test.c">test.c</a></li>
+
+        <p>In each file we changed, we included comments to describe how modifications were done or how we implemented new features. All comments are preceded by ’CSI3530:’.</p>
+        <br>
+        <p>In addition, we compiled it with data of our own and here's a screen shot of the result</p>
+        <img src="Screenshot 2023-12-19 at 9.03.06 PM.png" alt="" width="100%">
+    </ul>
+    <!-- Include any links, videos, or interactive demos here -->
+
+    <h2>Conclusion</h2>
+    <p>
+      In conclusion, this project has helped us understand a lot about the functioning of query optimisation in postgreSQL. 
+      We believe that it has potential for future feature upgrades as getting data fast is one of the main concerns these days and trying out multiple different algorithms is one step in the right direction to get closer to a better execution time.
+    </p>
+  </section>
+
+</body>
+</html>
