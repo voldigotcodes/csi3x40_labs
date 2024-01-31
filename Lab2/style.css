@@ -87,7 +87,7 @@ label.header-logo{
   }
 
   .right-box {
-    display: flex;
+    display: block;
     justify-content: center;
     align-items: flex-start;
     background-color: #f1f1f1;
@@ -191,6 +191,16 @@ label.header-logo{
 
 }
 
+.portfolio .bottom-text{
+    display: block;
+}
+
+.portfolio .bottom-text .t{
+    width: 90%;
+    text-align: left;
+
+}
+
 .t {
     margin: 25px;
 }
@@ -200,5 +210,39 @@ label.header-logo{
     text-align: center;
 
 }
+
+.project-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    overflow-y: scroll;
+
+}
+
+.proj {
+    flex: 1;
+    /*padding: 20px;*/
+    border: 1px solid #ccc;
+    margin: 10px;
+    height: 100%;
+    box-shadow: 1px 1px 20px -3px #cfcece;
+  }
+
+  .proj-img-wrapper{
+    border: 1px solid #ccc;
+    width: 100%;
+    height: 250px;
+  }
+
+  .proj-desc{
+    padding: 10px 0 0 10px;
+    height: 150px;
+    overflow-y: scroll;
+  }
+
+  .proj-desc h3{
+    margin: 5px 0 5px 0;
+  }
 
 
