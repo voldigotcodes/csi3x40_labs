@@ -111,6 +111,7 @@ function nextLevel(g){
 }
 
 function display(board) {
+    //displaying the board
     var boardElements = [];
     for(i in board){
         boardElements[i] = document.createElement("div");
@@ -119,15 +120,32 @@ function display(board) {
         boardElements[i].innerHTML = board[i];
         document.getElementById("board").appendChild(boardElements[i]);
     }
+
+     //Displaying the game system
+        //score update
+        var scoreElem = document.getElementById("score").innerHTML = "Score : " + game.score;
+
+        //Level display
+        var levelElem = document.getElementById("level").innerHTML = "Level : " + 0;
+
 }
 
 function update(board) {
+    //Updating the board
     var boardElements = [];
     for(i in board){
         boardElements[i] = document.getElementById("cell elem "+ i)
         if(boardElements[i] != null)
             boardElements[i].innerHTML = board[i];
     }
+
+    //Updating the game system
+        //score update
+    var scoreElem = document.getElementById("score").innerHTML = "Score : " + game.score;
+
+        //Level update
+        //TODO: Check if we need to update the level
+        //then update the level if needed
 }
 
 function deleteGame(){
