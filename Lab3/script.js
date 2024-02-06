@@ -11,8 +11,13 @@ const game = {
     fruit : "@",
     dots : ".",
     score : 0,
+    scoreMax : 0,
+    level : 0,
+    speed : 2000,
     isGameOver : false,
 };
+
+let timerId = setInterval(ghostMovement, 2000);
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -21,19 +26,25 @@ function getRandomInt(max) {
 function createGame(n) {
     for (let i = 0; i < n; i++) {
         game.board[i] = game.dots;
+        game.scoreMax = parseInt(game.scoreMax)+1
     }
     game.board[getRandomInt(game.board.length)] = game.fruit;
     game.board[game.ghost.index = getRandomInt(game.board.length)] += game.ghost.sprite;
     game.board[game.player.index = parseInt(n/2)] = game.player.sprite;
+    if(game.ghost.index == game.player.index){
+        game.board[game.ghost.index += 1] += game.ghost.sprite;
+    }
+    game.scoreMax -=2;
+    console.log(game.scoreMax);
     display(game.board);    
     return game.board
 }
 
 function moveLeft(user, board) {
-    board[user.index] -= user.sprite;
-    if(user.sprite.includes(game.player.sprite) || isNaN(board[user.index]))
+    board[user.index] = board[user.index].replace(user.sprite, "");
+    if(user.sprite == game.player.sprite){
         board[user.index] = "";
-
+    }
 
     //Gestion des mouvement 
     if (user.index == 0) {
@@ -42,22 +53,28 @@ function moveLeft(user, board) {
         if(board[user.index].includes(game.dots) && user.sprite == game.player.sprite){
             game.score++;
         }
-        //Gestion des Fantome
+        //Gestion des collisions
         if(board[user.index].includes(game.ghost.sprite) && user.sprite == game.player.sprite){
             gameOver(game);
+        }else if(board[user.index].includes(game.player.sprite) && user.sprite == game.ghost.sprite){
+            gameOver(game);
+            clearInterval(timerId);
         }
-        board[user.index] = user.sprite;
+        board[user.index] = user.sprite == game.player.sprite ? user.sprite : board[user.index]+user.sprite;
     }else{
         user.index = parseInt(user.index)-1;
         //Gestion du score
         if(board[user.index].includes(game.dots) && user.sprite == game.player.sprite){
             game.score++;
         }
-        //Gestion du Fantome
+        //Gestion des collisions
         if(board[user.index].includes(game.ghost.sprite) && user.sprite == game.player.sprite){
             gameOver(game);
+        }else if(board[user.index].includes(game.player.sprite) && user.sprite == game.ghost.sprite){
+            gameOver(game);
+            clearInterval(timerId);
         }
-        board[user.index] = user.sprite;
+        board[user.index] = user.sprite == game.player.sprite ? user.sprite : board[user.index]+user.sprite;
     }
     update(board);
     nextLevel(game);
@@ -65,9 +82,10 @@ function moveLeft(user, board) {
 }
 
 function moveRight(user, board) {
-    board[user.index] -= user.sprite;
-    if(user.sprite.includes(game.player.sprite) || isNaN(board[user.index]))
+    board[user.index] = board[user.index].replace(user.sprite, "");
+    if(user.sprite == game.player.sprite){
         board[user.index] = "";
+    }
 
     if (user.index == board.length - 1) {
         user.index = 0;
@@ -78,36 +96,61 @@ function moveRight(user, board) {
         //Gestion des Fantome
         if(board[user.index].includes(game.ghost.sprite) && user.sprite == game.player.sprite){
             gameOver(game);
+        }else if(board[user.index].includes(game.player.sprite) && user.sprite == game.ghost.sprite){
+            gameOver(game);
+            clearInterval(timerId);
         }
-        board[0] = user.sprite;
+        board[0] = user.sprite == game.player.sprite ? user.sprite : board[0]+user.sprite;
     }else{
         user.index = parseInt(user.index)+1
         //Gestion du score
         if(board[user.index].includes(game.dots) && user.sprite == game.player.sprite){
             game.score++;
         }
-        //Gestion des Fantome
+        //Gestion des Collision
         if(board[user.index].includes(game.ghost.sprite) && user.sprite == game.player.sprite){
             gameOver(game);
+        }else if(board[user.index].includes(game.player.sprite) && user.sprite == game.ghost.sprite){
+            gameOver(game);
+            clearInterval(timerId);
         }
-        board[user.index] = user.sprite;
+        
+        board[user.index] = user.sprite == game.player.sprite ? user.sprite : board[user.index]+user.sprite;
     }
-    update(board);
     nextLevel(game);
+    update(board);
     return board
+}
+
+function ghostMovement() {
+    console.log("movement");
+    var decision = getRandomInt(2);
+    if(decision>=1){
+        moveLeft(game.ghost, game.board);
+    }else{
+        moveRight(game.ghost, game.board);
+    }
 }
 
 function nextLevel(g){
     //Verification if we should advance to the next level
-    for(i of g.board){
-        if(i.includes(game.dots)){
-            return false;
+    if(game.score == game.scoreMax){
+        //Advancing to the next level
+        game.level++;
+        if(game.speed>500){
+            game.speed-=100;
         }
+        update(board)
+        restart(game, 7);
+        console.log("NEXT LEVEL");
+        //restart(game, 7);
+        //regenerating the game but in a bigger size
+        return true;
+    }else{
+        return false;
     }
 
-    //Advancing to the next level
-    //regenerating the game but in a bigger size
-    return true;
+    
 }
 
 function display(board) {
@@ -144,13 +187,12 @@ function update(board) {
     var scoreElem = document.getElementById("score").innerHTML = "Score : " + game.score;
 
         //Level update
-        //TODO: Check if we need to update the level
-        //then update the level if needed
+    var levelElem = document.getElementById("level").innerHTML = "Level : " + game.level;
 }
 
 function deleteGame(){
     const list = document.getElementById("board");
-
+    //clearInterval(timerId);
     while (list.hasChildNodes()) {
         list.removeChild(list.firstChild);
       }
@@ -164,11 +206,15 @@ function gameOver(g) {
 function restart(g,n) {
     g.board = [];
     g.score = 0;
+    g.scoreMax = 0;
     g.player.index = 0;
     g.isGameOver = false;
     deleteGame();
+    clearInterval(timerId);
+    timerId = setInterval(ghostMovement, game.speed);
     createGame(n);
-    document.getElementById("game-status").innerHTML = ""
+    document.getElementById("game-status").innerHTML = "";
+    //timerId = setInterval(ghostMovement(), 2000);
     return g.board;
 }
 
@@ -198,3 +244,7 @@ btnRestart.addEventListener("click", function() {
     // your function code here
     restart(game,7);
 });
+
+//DANGEROUS : GHOST MOVEMENT
+
+
